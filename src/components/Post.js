@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 //TODO(8): Bring actions here
 import { fetchPosts } from '../actions/postAction';
 
+//TODO(9): Bring in propTypes
+import PropTypes from "prop-types";
+
 class Post extends Component {
 
   componentWillMount() {
@@ -26,6 +29,12 @@ class Post extends Component {
     )
   }
 }
+
+//TODO(9.1): Declare property types here
+Post.propTypes = {
+  fetchPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array.isRequired
+};
 
 //TODO(7.1.1): Map redux state to component props
 const mapStateToProps = state => ({
