@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 class Post extends Component {
 
   componentWillMount() {
+    //TODO(8.1): Calling the action here
     this.props.fetchPosts();
   }
 
