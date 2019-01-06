@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 
+//TODO(7): This connects the component to the redux store
+import { connect } from 'react-redux';
+//TODO(8): Bring actions here
+import { fetchPosts } from '../actions/postAction';
+
 class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: []
-    }
-  }
 
   componentWillMount() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(data => this.setState({ posts: data }))
-      .catch(err => console.log(err));
+    this.props.fetchPosts();
   }
 
-  render() {
-    const postItems = this.state.posts.map(post => (
+  render() { console.log(this.props);
+    const postItems = this.props.posts.map(post => (
       <div key={post.id}>
         <h3>{post.title}</h3>
         <p>{post.body}</p>
@@ -31,4 +27,11 @@ class Post extends Component {
   }
 }
 
-export default Post;
+//TODO(7.1.1): Map redux state to component props
+const mapStateToProps = state => ({
+  posts: state.posts.items
+})
+
+//TODO(7.1): export using connect object
+//connect first param - maps state to props & second one is the Action
+export default connect(mapStateToProps, { fetchPosts })(Post);
