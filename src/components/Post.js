@@ -10,9 +10,16 @@ import PropTypes from "prop-types";
 
 class Post extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     //TODO(8.1): Calling the action here
     this.props.fetchPosts();
+  }
+
+  //TODO(11.1): Getting the props when the new post component adds new value
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.newPost) {
+      this.props.posts.unshift(nextProps.newPost);
+    }
   }
 
   render() { console.log(this.props);
@@ -34,12 +41,16 @@ class Post extends Component {
 //TODO(9.1): Declare property types here
 Post.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  newPost: PropTypes.object
 };
 
 //TODO(7.1.1): Map redux state to component props
 const mapStateToProps = state => ({
-  posts: state.posts.items
+  posts: state.posts.items,
+  
+  //TODO(11): Now its time to bring new post item to post item list (Single source of state and sharing it to all the components)
+  newPost: state.posts.item
 })
 
 //TODO(7.1): export using connect object
